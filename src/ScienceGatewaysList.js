@@ -23,7 +23,8 @@ export default function () {
     } else if (data.length === 0) {
         return <div>No science gateways available to display.</div>
     } else {
-        return <div className="w-100">
+        return <div className="w-100 p-2 ">
+            <h2>Science Gateway Discovery Interface</h2>
             <ul className="row list-unstyled">
                 {data.map((gateway, gatewayIndex) => {
                     // return <li key={gatewayIndex} className="col-lg-3">
@@ -55,10 +56,14 @@ export default function () {
                                 <h4>
                                     Links
                                 </h4>
-                                <p>
-                                    <a className="btn btn-link pb-3" href={gateway.primary_service_url}>Primary Service URL</a>
-                                    <a className="btn btn-link pb-3" href={gateway.cider_data_url}>CiDer Data URL</a>
-                                </p>
+                                <ul className="list-unstyled">
+                                    <li>
+                                        <a className="btn btn-link pb-3" href={gateway.primary_service_url}>Primary Service URL</a>
+                                    </li>
+                                    <li>
+                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url}>CiDer Data URL</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
