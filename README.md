@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Operations_WebApp_ScienceGateways 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to integrate on your website
+
+```html
+    <script defer="defer" src="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_WebApp_ScienceGateways@0.1.1/build/static/js/main.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_WebApp_ScienceGateways@0.1.1/build/static/css/main.css" rel="stylesheet">
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="Operations_WebApp_SoftwareDiscovery"></div>
+```
 
 ## Available Scripts
 
