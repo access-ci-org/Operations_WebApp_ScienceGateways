@@ -3,37 +3,98 @@ import ReactDOM from "react-dom/client";
 
 export default function () {
     let [data, setData] = useState(null);
+    let [search, setSearch] = useState(null);
+    let [page, setPage] = useState(1);
+    let [pageSize, setPageSize] = useState(20);
+    let [count, setCount] = useState(null);
+    let [prev, setPrev] = useState(null);
+    let [next, setNext] = useState(null);
 
     async function fetchData() {
-        let response = await fetch("https://operations-api.access-ci.org/wh2/cider/v1/access-science-gateways/")
+        let query = [];
+        if (search) {
+            query.push(`search=${search}`);
+        }
+
+        if (page) {
+            query.push(`page=${page}`);
+        }
+
+        if (pageSize) {
+            query.push(`page_size=${pageSize}`);
+        }
+
+        query = query.join("&");
+
+        let response = await fetch(
+            `https://operations-api.access-ci.org/wh2/cider/v1/access-science-gateways/?${query}`)
             .then(res => res.json())
 
         console.log("response : ", response);
+        setCount(response.count);
+        setPrev(response.prev);
+        setNext(response.next);
         setData(response.results);
+    }
+
+    function handleSearchChange(e) {
+        console.log("handleSearchChange ", e.target.value);
+        // setSearch(e.target.value);
+    }
+
+    function handleSearchKeyDown(e) {
+        if (e.key == "Enter") {
+            console.log("handleSearchKeyDown Enter");
+            // fetchData();
+            setSearch(e.target.value);
+        }
+    }
+
+    function getPaginationData() {
+        let paginationData = [];
+        let lastPage = Math.ceil(count / pageSize);
+
+        paginationData.push({
+            label: "Prev",
+            page: page - 1,
+            disabled: page === 1
+        });
+
+        for (let i = 1; i <= lastPage; i++) {
+            paginationData.push({
+                label: i,
+                page: i,
+                active: i === page
+            });
+        }
+
+        paginationData.push({
+            label: "Next",
+            page: page - 1,
+            disabled: page === lastPage
+        });
+
+        return paginationData;
+    }
+
+    function handlePaginationLinkClick(page, e) {
+        e.preventDefault();
+        setPage(page);
     }
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [search, page, pageSize]);
 
-
-    if (!data) {
-        return <div>Loading...</div>
-    } else if (data.length === 0) {
-        return <div>No science gateways available to display.</div>
-    } else {
-        return <div className="w-100 p-2 ">
-            <h2>Science Gateway Discovery Interface</h2>
-            <ul className="row list-unstyled">
+    function getGatewayList() {
+        if (!data) {
+            return <div className="p-3 text-center">Loading...</div>
+        } else if (data.length === 0) {
+            return <div className="p-3 text-center">No science gateways available to display.</div>
+        } else {
+            return <ul className="row list-unstyled">
                 {data.map((gateway, gatewayIndex) => {
-                    // return <li key={gatewayIndex} className="col-lg-3">
-                    //     <div className="bg-dark m-2">
-                    //         <h3>{gateway.resource_descriptive_name}</h3>
-                    //         <p>{gateway.resource_descriptive}</p>
-                    //     </div>
-                    // </li>
-
-                    return <div className="m-2 w-100">
+                    return <div className="m-2 w-100" key={gatewayIndex}>
                         <div className="bg-light text-dark p-5 h-100">
                             <div className="d-lg-flex flex-lg-row d-sm-flex flex-sm-column">
                                 <div className="flex-fill">
@@ -78,8 +139,28 @@ export default function () {
                         </div>
                     </div>
                 })}
+                <nav className="w-100">
+                  <ul className="pagination">
+                      {getPaginationData().map(({page, label, active, disabled}, paginationLinkIndex) => {
+                          return <li className="page-item" key={paginationLinkIndex}>
+                              <a className={"page-link" + (active ? " active" : "") + (disabled ? " disabled" : "")} href="#"
+                                 onClick={handlePaginationLinkClick.bind(this, page)}>{label}</a>
+                          </li>
+                      })}
+                  </ul>
+                </nav>
             </ul>
-        </div>
+        }
     }
+
+    return <div className="w-100 p-2 ">
+        <h2>Science Gateway Discovery Interface</h2>
+        <div className="w-100 p-3">
+            <input type="text" className="form-control" placeholder="Search" onChange={handleSearchChange.bind(this)}
+                   onKeyDown={handleSearchKeyDown.bind(this)}/>
+        </div>
+        {getGatewayList()}
+    </div>
+
 }
 
