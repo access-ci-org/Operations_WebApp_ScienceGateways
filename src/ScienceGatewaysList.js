@@ -6,7 +6,7 @@ export default function () {
 
     async function fetchData() {
         let response = await fetch("https://operations-api.access-ci.org/wh2/cider/v1/access-science-gateways/")
-            .then(res=> res.json())
+            .then(res => res.json())
 
         console.log("response : ", response);
         setData(response.results);
@@ -15,7 +15,6 @@ export default function () {
     useEffect(() => {
         fetchData();
     }, []);
-
 
 
     if (!data) {
@@ -35,33 +34,44 @@ export default function () {
                     // </li>
 
                     return <div className="m-2 w-100">
-                        <div className="bg-dark text-light p-5 h-100">
-                            <h3>
-                                {gateway.resource_descriptive_name}&nbsp;&nbsp;
-                                <span className="badge bg-medium text-light">{gateway.shortname}</span>
-                            </h3>
+                        <div className="bg-light text-dark p-5 h-100">
+                            <div className="d-lg-flex flex-lg-row d-sm-flex flex-sm-column">
+                                <div className="flex-fill">
+                                    <h2>
+                                        <a className="btn btn-link">
+                                            {gateway.resource_descriptive_name}
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <span className="badge bg-dark text-light">{gateway.shortname}</span>
+                                </div>
+                            </div>
+
                             <p>{gateway.resource_description}</p>
                             {/*<p>{gateway.long_description}</p>*/}
-                            <div className="d-flex flex-row">
-                                <div className="p-1">
-                                    <strong>Allocation Grant No. : </strong>
-                                    {gateway.allocated_grant_number}
-                                </div>
+                            <div className="w-100">
                                 <div className="p-1">
                                     <strong>Status : </strong>
                                     {gateway.latest_status}
                                 </div>
+                                <div className="p-1">
+                                    <strong>Allocation Grant No. : </strong>
+                                    {gateway.allocated_grant_number}
+                                </div>
                             </div>
                             <div className="pt-3">
-                                <h4>
+                                <h4 className="visually-hidden">
                                     Links
                                 </h4>
-                                <ul className="list-unstyled">
-                                    <li>
-                                        <a className="btn btn-link pb-3" href={gateway.primary_service_url}>Primary Service URL</a>
+                                <ul className="w-100 list-unstyled list-inline">
+                                    <li className="d-inline p-2">
+                                        <a className="btn btn-link pb-3" href={gateway.primary_service_url}>Go to
+                                            gateway</a>
                                     </li>
-                                    <li>
-                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url}>CiDer Data URL</a>
+                                    <li className="d-inline p-2">
+                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url}>Gateway
+                                            metadata</a>
                                     </li>
                                 </ul>
                             </div>
