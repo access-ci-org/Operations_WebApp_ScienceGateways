@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import ReactDOM from "react-dom/client";
+import "bootstrap-icons/font/bootstrap-icons.min.css";
 
 export default function () {
     let [data, setData] = useState(null);
@@ -114,7 +114,7 @@ export default function () {
                 </div>
                 {data.map((gateway, gatewayIndex) => {
                     return <div className="w-100 p-3" key={gatewayIndex}>
-                        <div className="bg-light text-dark p-5 w-100">
+                        <div className="bg-light text-dark pt-3 pb-3 ps-4 pe-4 w-100">
                             <div className="d-lg-flex flex-lg-row d-sm-flex flex-sm-column">
                                 <div className="flex-fill">
                                     <h2 className="w-100">
@@ -130,28 +130,33 @@ export default function () {
 
                             <p>{gateway.resource_description}</p>
                             {/*/!*<p>{gateway.long_description}</p>*!/*/}
-                            <div className="w-100">
-                                <div className="p-1">
+                            <ul className="w-100 list-inline list-unstyled">
+                                <li className="p-1 list-inline-item">
                                     <strong>Status : </strong>
                                     {gateway.latest_status}
-                                </div>
-                                <div className="p-1">
+                                </li>
+                                <li className="p-1  list-inline-item">
                                     <strong>Allocation Grant No. : </strong>
                                     {gateway.allocated_grant_number}
-                                </div>
-                            </div>
+                                </li>
+                            </ul>
                             <div className="pt-3">
                                 <h4 className="visually-hidden">
                                     Links
                                 </h4>
                                 <ul className="w-100 list-unstyled list-inline">
                                     <li className="d-inline p-2">
-                                        <a className="btn btn-link pb-3" href={gateway.primary_service_url}>Go to
-                                            gateway</a>
+                                        <a className="btn btn-link pb-3" href={gateway.primary_service_url}
+                                           target="_blank">
+                                            Go to gateway &nbsp;&nbsp;
+                                            <i className="bi bi-box-arrow-up-right"></i>
+                                        </a>
                                     </li>
                                     <li className="d-inline p-2">
-                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url}>Gateway
-                                            metadata</a>
+                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url} target="_blank">
+                                            Gateway metadata &nbsp;&nbsp;
+                                            <i className="bi bi-box-arrow-up-right"></i>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
