@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "bootstrap-icons/font/bootstrap-icons.min.css";
+import boxArrowUpRightIcon from "bootstrap-icons/icons/box-arrow-up-right.svg";
 
 export default function () {
     let [data, setData] = useState(null);
@@ -149,13 +149,13 @@ export default function () {
                                         <a className="btn btn-link pb-3" href={gateway.primary_service_url}
                                            target="_blank">
                                             Go to gateway &nbsp;&nbsp;
-                                            <i className="bi bi-box-arrow-up-right"></i>
+                                            <img src={boxArrowUpRightIcon}/>
                                         </a>
                                     </li>
                                     <li className="d-inline p-2">
                                         <a className="btn btn-link pb-3" href={gateway.cider_data_url} target="_blank">
                                             Gateway metadata &nbsp;&nbsp;
-                                            <i className="bi bi-box-arrow-up-right"></i>
+                                            <img src={boxArrowUpRightIcon}/>
                                         </a>
                                     </li>
                                 </ul>
@@ -182,7 +182,7 @@ export default function () {
     }
 
     return <div className="w-100 p-2 ">
-        <h2 className="w-100">Science Gateway Discovery Interface</h2>
+        <h2 className="w-100 visua">Science Gateway Discovery Interface</h2>
         <div className="w-100 p-3">
             <input type="text" className="form-control" placeholder="Search" onChange={handleSearchChange.bind(this)}
                    onKeyDown={handleSearchKeyDown.bind(this)}/>
