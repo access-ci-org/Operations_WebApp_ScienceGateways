@@ -6,6 +6,7 @@ export default function () {
     let [page, setPage] = useState(1);
     let [pageSize, setPageSize] = useState(20);
     let [count, setCount] = useState(null);
+    let [updated, setUpdated] = useState(false);
 
     async function fetchData() {
         let query = [];
@@ -34,14 +35,19 @@ export default function () {
 
     function handleSearchChange(e) {
         console.log("handleSearchChange ", e.target.value);
-        // setSearch(e.target.value);
+        setSearch(e.target.value);
     }
 
     function handleSearchKeyDown(e) {
         if (e.key == "Enter") {
-            setPage(1);
-            setSearch(e.target.value);
+            triggerSearch();
         }
+    }
+
+    function triggerSearch(e) {
+        console.log("triggerSearch ", e);
+        setPage(1);
+        setUpdated(false);
     }
 
     function getPaginationData() {
@@ -81,8 +87,11 @@ export default function () {
     }
 
     useEffect(() => {
-        fetchData();
-    }, [search, page, pageSize]);
+        if (!updated) {
+            fetchData();
+            setUpdated(true);
+        }
+    }, [updated]);
 
     function getGatewayList() {
         if (!data) {
@@ -117,28 +126,27 @@ export default function () {
                             <div className="d-lg-flex flex-lg-row d-sm-flex flex-sm-column">
                                 <div className="flex-fill">
                                     <h2 className="w-100">
-                                        <a className="btn btn-link">
+                                        <h2>
                                             {gateway.resource_descriptive_name}
-                                        </a>
+                                            &nbsp;
+                                            <small className="fs-6">({gateway.shortname})</small>
+                                        </h2>
                                     </h2>
-                                </div>
-                                <div>
-                                    <span className="badge bg-dark text-light">{gateway.shortname}</span>
                                 </div>
                             </div>
 
                             <p>{gateway.resource_description}</p>
                             {/*/!*<p>{gateway.long_description}</p>*!/*/}
-                            <ul className="w-100 list-inline list-unstyled">
-                                <li className="p-1 list-inline-item">
-                                    <strong>Status : </strong>
-                                    {gateway.latest_status}
-                                </li>
-                                <li className="p-1  list-inline-item">
-                                    <strong>Allocation Grant No. : </strong>
-                                    {gateway.allocated_grant_number}
-                                </li>
-                            </ul>
+                            {/*<ul className="w-100 list-inline list-unstyled">*/}
+                            {/*    <li className="p-1 list-inline-item">*/}
+                            {/*        <strong>Status : </strong>*/}
+                            {/*        {gateway.latest_status}*/}
+                            {/*    </li>*/}
+                            {/*    <li className="p-1  list-inline-item">*/}
+                            {/*        <strong>Allocation Grant No. : </strong>*/}
+                            {/*        {gateway.allocated_grant_number}*/}
+                            {/*    </li>*/}
+                            {/*</ul>*/}
                             <div className="pt-3">
                                 <h4 className="visually-hidden">
                                     Links
@@ -149,20 +157,20 @@ export default function () {
                                            target="_blank">
                                             Go to gateway &nbsp;&nbsp;
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
-  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+  <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+  <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
 </svg>
                                         </a>
                                     </li>
-                                    <li className="d-inline p-2">
-                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url} target="_blank">
-                                            Gateway metadata &nbsp;&nbsp;
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
-  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
-</svg>
-                                        </a>
-                                    </li>
+{/*                                    <li className="d-inline p-2">*/}
+{/*                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url} target="_blank">*/}
+{/*                                            Gateway metadata &nbsp;&nbsp;*/}
+{/*                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right" viewBox="0 0 16 16">*/}
+{/*  <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>*/}
+{/*  <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>*/}
+{/*</svg>*/}
+{/*                                        </a>*/}
+{/*                                    </li>*/}
                                 </ul>
                             </div>
                         </div>
@@ -188,9 +196,10 @@ export default function () {
 
     return <div className="w-100 p-2 ">
         <h2 className="w-100 visua">Science Gateway Discovery Interface</h2>
-        <div className="w-100 p-3">
-            <input type="text" className="form-control" placeholder="Search" onChange={handleSearchChange.bind(this)}
+        <div className="w-100 p-3 d-flex flex-row">
+            <input type="text" className="form-control flex-fill" placeholder="Search" onChange={handleSearchChange.bind(this)}
                    onKeyDown={handleSearchKeyDown.bind(this)}/>
+            <a className="btn btn-secondary" onClick={triggerSearch}>Search</a>
         </div>
         {getGatewayList()}
     </div>
