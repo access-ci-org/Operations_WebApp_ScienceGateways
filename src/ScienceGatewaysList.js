@@ -110,7 +110,7 @@ export default function () {
                             </label>
                         </div>
                         <div>
-                            <select className="form-control" id="pageSizeDropdown" value={pageSize}
+                            <select className="form-select" id="pageSizeDropdown" value={pageSize}
                                     onChange={handlePagesizeChange.bind(this)}  style={{width: "65px"}}>
                                 <option>10</option>
                                 <option>20</option>
