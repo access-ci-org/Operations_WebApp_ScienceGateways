@@ -80,6 +80,7 @@ export default function () {
     function handlePaginationLinkClick(page, e) {
         e.preventDefault();
         setPage(page);
+        setUpdated(false);
     }
 
     function handlePagesizeChange(e) {
