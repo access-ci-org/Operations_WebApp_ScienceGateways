@@ -84,6 +84,7 @@ export default function () {
 
     function handlePagesizeChange(e) {
         setPageSize(e.target.value);
+        setUpdated(false);
     }
 
     useEffect(() => {
