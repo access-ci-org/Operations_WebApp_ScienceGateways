@@ -205,7 +205,7 @@ export default function () {
         <div className="w-100 p-3 d-flex flex-row">
             <input type="text" className="form-control flex-fill" placeholder="Search" onChange={handleSearchChange.bind(this)}
                    onKeyDown={handleSearchKeyDown.bind(this)}/>
-            <a className="btn btn-secondary" onClick={triggerSearch}>Search</a>
+            <a className="btn btn-primary" onClick={triggerSearch}>Search</a>
         </div>
         {getGatewayList()}
     </div>
