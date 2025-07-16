@@ -28,13 +28,11 @@ export default function () {
             `https://operations-api.access-ci.org/wh2/cider/v1/access-science-gateways/?${query}`)
             .then(res => res.json())
 
-        console.log("response : ", response);
         setCount(response.count);
         setData(response.results);
     }
 
     function handleSearchChange(e) {
-        console.log("handleSearchChange ", e.target.value);
         setSearch(e.target.value);
     }
 
@@ -45,7 +43,6 @@ export default function () {
     }
 
     function triggerSearch(e) {
-        console.log("triggerSearch ", e);
         setPage(1);
         setUpdated(false);
     }
@@ -111,7 +108,7 @@ export default function () {
                         </div>
                         <div>
                             <select className="form-select" id="pageSizeDropdown" value={pageSize}
-                                    onChange={handlePagesizeChange.bind(this)}  style={{width: "65px"}}>
+                                    onChange={handlePagesizeChange.bind(this)} style={{width: "65px"}}>
                                 <option>10</option>
                                 <option>20</option>
                                 <option>50</option>
@@ -128,11 +125,9 @@ export default function () {
                             <div className="d-lg-flex flex-lg-row d-sm-flex flex-sm-column">
                                 <div className="flex-fill">
                                     <h2 className="w-100">
-                                        <h2>
-                                            {gateway.resource_descriptive_name}
-                                            &nbsp;
-                                            <small className="fs-6">({gateway.shortname})</small>
-                                        </h2>
+                                        {gateway.resource_descriptive_name}
+                                        &nbsp;
+                                        <small className="fs-6">({gateway.shortname})</small>
                                     </h2>
                                 </div>
                             </div>
@@ -157,26 +152,18 @@ export default function () {
                                 </h4>
                                 <ul className="w-100 list-unstyled list-inline">
                                     <li className="d-inline">
-                                        <a className="btn btn-link pb-3" href={gateway.primary_service_url}
+                                        <a className="btn btn-link pe-2" href={gateway.primary_service_url}
                                            target="_blank">
                                             Go to gateway
                                         </a>
-                                        <div className="d-inline position-absolute ps-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-  <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
-  <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
-</svg>
-                                        </div>
+                                        <i className="bi bi-box-arrow-up-right"></i>
                                     </li>
-{/*                                    <li className="d-inline p-2">*/}
-{/*                                        <a className="btn btn-link pb-3" href={gateway.cider_data_url} target="_blank">*/}
-{/*                                            Gateway metadata &nbsp;&nbsp;*/}
-{/*                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right" viewBox="0 0 16 16">*/}
-{/*  <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>*/}
-{/*  <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>*/}
-{/*</svg>*/}
-{/*                                        </a>*/}
-{/*                                    </li>*/}
+                                    <li className="d-inline p-2">
+                                        <a className="btn btn-link pe-2" href={gateway.sgx3_url} target="_blank">
+                                            SGX3 Catalog
+                                        </a>
+                                        <i className="bi bi-box-arrow-up-right"></i>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -203,7 +190,8 @@ export default function () {
     return <div className="w-100 p-2 ">
         <h2 className="w-100 visua">Science Gateway Discovery Interface</h2>
         <div className="w-100 p-3 d-flex flex-row">
-            <input type="text" className="form-control flex-fill" placeholder="Search" onChange={handleSearchChange.bind(this)}
+            <input type="text" className="form-control flex-fill" placeholder="Search"
+                   onChange={handleSearchChange.bind(this)}
                    onKeyDown={handleSearchKeyDown.bind(this)}/>
             <a className="btn btn-primary" onClick={triggerSearch}>Search</a>
         </div>
