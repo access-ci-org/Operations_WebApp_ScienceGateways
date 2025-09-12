@@ -1,15 +1,17 @@
 # Operations_WebApp_ScienceGateways 
 
+This webapp is a discovery interface for Science Gateways that have integrated with ACCESS and provide their services using ACCESS compute, storage, or cloud resources. Researchers can access these gateways without needing their own ACCESS allocation.
+
 ### Dependencies
 ```html
-<link href="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_Drupal_Theme@v0.3.27/b5_ac_conect/css/style.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_Drupal_Theme@v0.3.37/b5_ac_conect/css/style.css" rel="stylesheet" crossorigin="anonymous">
 ```
 
 ## How to integrate on your website
 
 ```html
-    <script defer="defer" src="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_WebApp_ScienceGateways@0.1.3/build/static/js/main.js"></script>
-    <link href="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_WebApp_ScienceGateways@0.1.3/build/static/css/main.css" rel="stylesheet">
+    <script defer="defer" src="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_WebApp_ScienceGateways@0.1.14/build/static/js/main.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/access-ci-org/Operations_WebApp_ScienceGateways@0.1.14/build/static/css/main.css" rel="stylesheet">
 
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="Operations_WebApp_ScienceGateways"></div>
